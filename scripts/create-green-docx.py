@@ -37,7 +37,7 @@ bullets([
 ])
 doc.add_heading('四、性能结果', level=1)
 bullets([
-    '首页 Lighthouse：性能 95、无障碍 100、最佳实践 100、SEO 100。',
+    '首页 Lighthouse：性能 92、无障碍 100、最佳实践 100、SEO 100。',
     '数据页 Lighthouse：性能 100、无障碍 100、最佳实践 100、SEO 100。',
     '继续使用 Canvas 2D 和 CSS transform，移除 React 与 Three.js。',
 ])

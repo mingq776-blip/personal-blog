@@ -1,7 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import { Image } from "astro:assets";
-import backdropLandscape from "../assets/landscapes/forest.webp";
+import backdropLandscape from "../assets/landscapes/backdrop-forest.webp";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../data/site";
@@ -66,7 +66,7 @@ const ogImage = new URL(image, Astro.site ?? site.url);
   </head>
   <body>
     <div class="page-backdrop" aria-hidden="true">
-      <Image src={backdropLandscape} alt="" widths={[720, 1200, 1800]} format="webp" class="page-backdrop__image" loading="eager" />
+      <Image src={backdropLandscape} alt="" widths={[420, 560]} format="webp" class="page-backdrop__image" loading="eager" />
       <div class="page-backdrop__veil"></div>
     </div>
     <div class="page-noise" aria-hidden="true"></div>
