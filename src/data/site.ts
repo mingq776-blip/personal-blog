@@ -1,9 +1,9 @@
-﻿export const site = {
+export const site = {
   title: "我的博客",
   author: "我的名字",
   role: "内容创作者 / 独立开发者",
   description: "记录技术、创作与长期主义的个人空间。这里既有文章，也存放正在生长的作品。",
-  url: "https://example.vercel.app",
+  url: "https://personal-blog-gamma-six.vercel.app",
   location: "中国",
   email: "hello@example.com",
   navigation: [
