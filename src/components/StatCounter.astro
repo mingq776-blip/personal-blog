@@ -1,0 +1,14 @@
+﻿---
+interface Props {
+  value: number;
+  suffix?: string;
+  label: string;
+  detail?: string;
+}
+const { value, suffix = "", label, detail } = Astro.props;
+---
+<article class="stat-card reveal-up">
+  <strong data-counter data-value={value} data-suffix={suffix}>0{suffix}</strong>
+  <span>{label}</span>
+  {detail && <small>{detail}</small>}
+</article>

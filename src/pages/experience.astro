@@ -1,0 +1,42 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import StatCounter from "../components/StatCounter.astro";
+import { experiences, timelineStats } from "../data/experience";
+---
+<BaseLayout title="项目经历" description="按时间整理的项目实践、职责与能力变化。">
+  <header class="page-hero page-hero--experience">
+    <div class="container page-hero__grid">
+      <div class="issue-index reveal-up"><span>02</span><small>EXPERIENCE</small></div>
+      <div class="reveal-up">
+        <p class="eyebrow">PROJECT TIMELINE</p>
+        <h1>经历不是履历，<br />是能力形成的过程。</h1>
+      </div>
+      <p class="page-hero__intro reveal-up">从学习任务到独立项目，每一段经历都保留目标、行动和复盘。以下内容目前为结构示例，可替换为你的真实经历。</p>
+    </div>
+  </header>
+
+  <section class="container experience-page">
+    {experiences.map((item, index) => (
+      <article class="experience-entry reveal-up">
+        <div class="experience-entry__rail"><span>{String(index + 1).padStart(2, "0")}</span><i></i></div>
+        <div class="experience-entry__period"><time>{item.period}</time><small>{item.organization}</small></div>
+        <div class="experience-entry__content">
+          <h2>{item.role}</h2>
+          <p>{item.description}</p>
+          <ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
+          {item.demo && <em>示例经历</em>}
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <section class="container stats-section">
+    <div class="stats-grid">{timelineStats.map((item) => <StatCounter {...item} />)}</div>
+  </section>
+
+  <section class="container closing-cta reveal-up">
+    <span>NEXT / WORKS</span>
+    <h2>经历最终会落到作品上。</h2>
+    <div><a href="/works">查看作品</a><a href="/dashboard">查看数据</a></div>
+  </section>
+</BaseLayout>

@@ -1,64 +1,34 @@
-﻿---
+---
 import { site } from "../data/site";
-
 const path = Astro.url.pathname;
 const isActive = (href: string) => href === "/" ? path === "/" : path.startsWith(href);
 ---
-
-<header class="sticky top-0 z-50 border-b border-line/70 bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] backdrop-blur-xl">
-  <div class="container flex min-h-16 items-center justify-between gap-4">
-    <a href="/" class="group flex items-center gap-3" aria-label={`${site.title} 首页`}>
-      <span class="grid size-9 place-items-center rounded-full border border-accent/45 bg-accent/10 text-sm font-black text-accent transition-transform group-hover:rotate-12">
-        M
-      </span>
-      <span class="hidden text-sm font-semibold tracking-[0.16em] text-ink sm:block">
-        {site.title.toUpperCase()}
-      </span>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="brand" aria-label={`M ${site.title} PERSONAL ARCHIVE 首页`}>
+      <span class="brand__mark">M</span>
+      <span class="brand__text"><b>{site.title}</b><small>PERSONAL ARCHIVE</small></span>
     </a>
-
-    <nav class="hidden items-center gap-1 rounded-full border border-line bg-panel/65 p-1 md:flex" aria-label="主导航">
+    <nav class="site-nav" aria-label="主导航">
       {site.navigation.map((item) => (
-        <a
-          href={item.href}
-          aria-current={isActive(item.href) ? "page" : undefined}
-          class:list={[
-            "rounded-full px-3.5 py-2 text-xs transition-colors",
-            isActive(item.href) ? "bg-ink text-bg" : "text-muted hover:text-ink",
-          ]}
-        >
-          {item.label}
+        <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined} class:list={["site-nav__link", isActive(item.href) && "is-active"]}>
+          <span>{item.label}</span>
         </a>
       ))}
     </nav>
-
-    <div class="flex items-center gap-1.5">
-      <a class="grid size-9 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent/50 hover:text-accent" href="/search" aria-label="搜索">
-        <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <circle cx="11" cy="11" r="6.5"></circle>
-          <path d="m16 16 4 4"></path>
-        </svg>
+    <div class="header-actions">
+      <a href="https://github.com/mingq776-blip" target="_blank" rel="noreferrer" class="icon-button" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.57-.29-5.27-1.28-5.27-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.17 1.18A10.9 10.9 0 0 1 12 5.8c.98 0 1.96.13 2.88.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.81 1.19 1.84 1.19 3.1 0 4.43-2.71 5.4-5.29 5.69.42.36.79 1.07.79 2.16v3.25c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
       </a>
-      <button data-theme-toggle class="grid size-9 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent/50 hover:text-accent" type="button" aria-label="切换明暗主题">
-        <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"></path>
-          <circle cx="12" cy="12" r="3.5"></circle>
-        </svg>
+      <button data-theme-toggle class="icon-button" type="button" aria-label="切换明暗主题">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="3.5"/></svg>
       </button>
-      <details class="relative md:hidden">
-        <summary class="grid size-9 cursor-pointer list-none place-items-center rounded-full border border-line text-muted transition-colors hover:text-ink" aria-label="打开导航">
-          <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M4 7h16M4 12h16M4 17h16"></path>
-          </svg>
-        </summary>
-        <nav class="absolute right-0 mt-3 grid w-44 gap-1 rounded-2xl border border-line bg-panel-solid p-2 shadow-2xl" aria-label="移动端导航">
-          {site.navigation.map((item) => (
-            <a href={item.href} class:list={["rounded-xl px-3 py-2 text-sm", isActive(item.href) ? "bg-accent text-[#041114]" : "text-muted hover:bg-line hover:text-ink"]}>
-              {item.label}
-            </a>
-          ))}
+      <details class="mobile-menu">
+        <summary class="icon-button" aria-label="打开导航">☰</summary>
+        <nav aria-label="移动端导航">
+          {site.navigation.map((item) => <a href={item.href} class:list={[isActive(item.href) && "is-active"]}>{item.label}</a>)}
         </nav>
       </details>
     </div>
   </div>
 </header>
-

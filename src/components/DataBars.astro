@@ -1,0 +1,21 @@
+﻿---
+interface Item {
+  label: string;
+  value: number;
+  color?: string;
+}
+interface Props {
+  items: Item[];
+  max?: number;
+}
+const { items, max = 100 } = Astro.props;
+---
+<div class="data-bars reveal-up" role="img" aria-label="数据柱状图">
+  {items.map((item, index) => (
+    <div class="data-bar" style={`--bar:${item.value};--max:${max};--delay:${index * 90}ms;--bar-color:${item.color ?? "var(--accent)"}`}>
+      <span class="data-bar__label">{item.label}</span>
+      <div class="data-bar__track"><i></i></div>
+      <strong>{item.value}{max === 100 ? "%" : ""}</strong>
+    </div>
+  ))}
+</div>

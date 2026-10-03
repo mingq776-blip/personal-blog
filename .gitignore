@@ -1,4 +1,4 @@
-﻿node_modules/
+node_modules/
 dist/
 .astro/
 .tools/
@@ -11,3 +11,4 @@ Thumbs.db
 docs/~$*.docx
 docs/*.json
 docs/*.log
+work/

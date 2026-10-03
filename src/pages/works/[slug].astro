@@ -1,0 +1,63 @@
+﻿---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { site } from "../../data/site";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects", ({ data }) => !data.draft);
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const allProjects = await getCollection("projects", ({ data }) => !data.draft);
+const related = allProjects.filter((item) => item.id !== project.id).slice(0, 2);
+const projectUrl = new URL(`/works/${project.id}/`, Astro.site ?? site.url);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: project.data.title,
+  description: project.data.summary,
+  dateCreated: String(project.data.year),
+  creator: { "@type": "Person", name: site.author },
+  url: projectUrl.toString(),
+};
+---
+<BaseLayout title={project.data.title} description={project.data.summary} image={project.data.cover.src} type="article">
+  <article>
+    <header class="work-detail-hero">
+      <div class="container work-detail-grid">
+        <div class="reveal-up">
+          <div class="work-detail-meta"><span>PROJECT {project.data.year}</span><span>{project.data.role}</span>{project.data.demo && <em>示例作品</em>}</div>
+          <h1>{project.data.title}</h1>
+          <p>{project.data.summary}</p>
+          <div class="work-card__stack">{project.data.stack.map((item) => <span>{item}</span>)}</div>
+          <div class="work-detail-links">
+            {project.data.liveUrl && <a class="button button--ink" href={project.data.liveUrl} target="_blank" rel="noreferrer">访问项目 ↗</a>}
+            {project.data.repoUrl && <a class="button button--ghost" href={project.data.repoUrl} target="_blank" rel="noreferrer">查看代码 ↗</a>}
+          </div>
+        </div>
+        <Image src={project.data.cover} alt={project.data.coverAlt} widths={[520, 900, 1300]} format="webp" class="work-detail-cover reveal-up" />
+      </div>
+    </header>
+
+    <div class="container work-detail-body">
+      <aside class="reveal-up">
+        <span>PROJECT NOTES</span>
+        <dl><div><dt>年份</dt><dd>{project.data.year}</dd></div><div><dt>职责</dt><dd>{project.data.role}</dd></div><div><dt>状态</dt><dd>{project.data.demo ? "示例展示" : "已发布"}</dd></div></dl>
+      </aside>
+      <div class="prose" data-pagefind-body><span class="sr-only">{project.data.title}</span><Content /></div>
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="container works-page works-page--related">
+      <p class="eyebrow">MORE WORKS</p>
+      <h2>其他作品</h2>
+      <div class="works-grid">{related.map((item, index) => <ProjectCard project={item} index={index} />)}</div>
+    </section>
+  )}
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</BaseLayout>

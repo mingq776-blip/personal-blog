@@ -1,55 +1,50 @@
 ﻿---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { site } from "../data/site";
-
-const skills = [
-  ["写作", "技术笔记 / 方法总结 / 长期记录"],
-  ["开发", "Web / 自动化 / 数据可视化"],
-  ["设计", "内容结构 / 界面原型 / 视觉实验"],
-  ["学习", "知识管理 / 项目驱动 / 持续复盘"],
+const values = [
+  ["01", "先理解问题", "不急着进入方案。先定义目标、约束和真正需要解决的部分。"],
+  ["02", "让过程可见", "保留判断与取舍，让作品不仅能展示结果，也能解释为什么这样做。"],
+  ["03", "保持可持续", "选择能够长期维护的结构、审美和工作方式，而不是追逐短期效果。"],
 ];
 ---
-
-<BaseLayout title="关于" description={`关于${site.author}，以及这个网站正在记录什么。`}>
-  <section class="container grid gap-14 border-b border-line py-20 md:py-28 lg:grid-cols-[0.75fr_1.25fr]">
-    <div class="surface relative grid min-h-80 place-items-center overflow-hidden rounded-[2rem]" data-reveal>
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_35%_35%,color-mix(in_srgb,var(--accent)_35%,transparent),transparent_45%),radial-gradient(circle_at_70%_65%,color-mix(in_srgb,var(--accent-2)_25%,transparent),transparent_40%)]"></div>
-      <span class="relative font-serif text-[8rem] font-bold leading-none text-ink/90">M</span>
-    </div>
-    <div>
-      <p class="eyebrow" data-reveal>About</p>
-      <h1 class="display mt-5 text-[clamp(3rem,7vw,6rem)] text-ink" data-reveal>持续学习，也持续交付。</h1>
-      <div class="mt-8 grid max-w-2xl gap-5 text-base leading-8 text-muted" data-reveal>
-        <p>你好，我是{site.author}。这里是我的文章与作品空间，也是记录认知变化的地方。</p>
-        <p>相比只展示最终结果，我更愿意保留过程：为什么做、遇到过什么问题、最后如何取舍。这样写下来的内容，才可能在未来继续被使用。</p>
-        <p>目前关注的领域包括个人知识管理、Web 开发、视觉表达，以及如何借助 AI 提高真实生产力。</p>
+<BaseLayout title="个人介绍" description={`关于${site.author}，以及持续创作的方向。`}>
+  <header class="profile-hero">
+    <div class="container profile-hero__grid">
+      <div class="issue-index reveal-up"><span>01</span><small>PROFILE</small></div>
+      <div class="reveal-up">
+        <p class="eyebrow">ABOUT ME</p>
+        <h1>保持好奇，<br />持续交付。</h1>
       </div>
-      <div class="mt-8 flex flex-wrap gap-3" data-reveal>
-        {site.socials.map((item) => <a class="rounded-full border border-line px-4 py-2 text-sm text-muted hover:border-accent/50 hover:text-accent" href={item.href}>{item.label}</a>)}
+      <p class="profile-hero__lead reveal-up">我正在建立一套把学习、开发和视觉表达连接起来的工作方式。网站既是个人档案，也是长期练习的现场。</p>
+    </div>
+  </header>
+
+  <section class="container about-grid">
+    <div class="about-monogram reveal-up" data-tilt>
+      <span>M</span>
+      <small>PERSONAL ARCHIVE / 2026</small>
+    </div>
+    <div class="about-copy reveal-up">
+      <p class="eyebrow">WHO I AM</p>
+      <h2>我是{site.author}，{site.role}。</h2>
+      <p>我关注一个想法如何从模糊问题变成清晰结构，再变成可以体验的作品。相比只展示最终结果，我更愿意记录过程、取舍和下一步。</p>
+      <p>目前的关注方向包括 Web 开发、交互设计、数据可视化、个人知识管理和 AI 辅助创作。</p>
+      <div class="profile-tags"><span>Web Development</span><span>Interaction</span><span>Data</span><span>Knowledge</span><span>AI</span></div>
+    </div>
+  </section>
+
+  <section class="editorial-section editorial-section--values">
+    <div class="container">
+      <div class="section-heading reveal-up"><div><p class="section-heading__eyebrow"><span></span>MY PRINCIPLES</p><h2>我如何做事</h2></div><div class="section-heading__side"><p>不追求复杂，只追求清晰、真实和可以继续迭代。</p></div></div>
+      <div class="value-grid">
+        {values.map(([number, title, text]) => <article class="value-card reveal-up"><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}
       </div>
     </div>
   </section>
 
-  <section class="container py-20">
-    <p class="eyebrow" data-reveal>What I care about</p>
-    <h2 class="display mt-4 text-4xl text-ink md:text-6xl" data-reveal>正在建立的能力</h2>
-    <div class="mt-10 grid gap-4 md:grid-cols-2">
-      {skills.map(([title, text], index) => (
-        <article class="surface rounded-[1.35rem] p-6 md:p-8" data-reveal>
-          <span class="text-xs uppercase tracking-[0.2em] text-accent">0{index + 1}</span>
-          <h3 class="mt-5 font-serif text-2xl font-bold text-ink">{title}</h3>
-          <p class="mt-3 text-sm leading-7 text-muted">{text}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="container pb-20">
-    <div class="surface overflow-hidden rounded-[2rem] p-8 md:p-12" data-reveal>
-      <p class="eyebrow">Now</p>
-      <h2 class="display mt-4 max-w-3xl text-3xl text-ink md:text-5xl">目前正在做：持续写作、整理知识系统，并完成更多真实项目。</h2>
-      <p class="mt-6 max-w-2xl text-sm leading-7 text-muted">这一段可以替换成你的近况。保持具体、诚实和可更新。</p>
-    </div>
+  <section class="container about-now reveal-up">
+    <span>NOW / 2026</span>
+    <h2>持续完善个人网站、项目案例与数据表达，把零散实践整理成完整作品。</h2>
+    <div><a href="/experience">看项目经历</a><a href="/works">看作品展示</a></div>
   </section>
 </BaseLayout>
-

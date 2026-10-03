@@ -1,0 +1,30 @@
+﻿---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+const projects = (await getCollection("projects", ({ data }) => !data.draft)).sort((a, b) => b.data.year - a.data.year);
+---
+<BaseLayout title="作品展示" description="项目作品、视觉实验与正在迭代的创意。">
+  <header class="page-hero page-hero--works">
+    <div class="container page-hero__grid">
+      <div class="issue-index reveal-up"><span>03</span><small>WORKS</small></div>
+      <div class="reveal-up">
+        <p class="eyebrow">SELECTED WORKS</p>
+        <h1>用作品回答，<br />我到底在做什么。</h1>
+      </div>
+      <p class="page-hero__intro reveal-up">每个作品都从问题出发，保留目标、过程、技术与最终结果。当前示例作品会逐步替换为真实项目。</p>
+    </div>
+  </header>
+
+  <section class="container works-page">
+    <div class="works-grid">
+      {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+    </div>
+  </section>
+
+  <section class="container closing-cta reveal-up">
+    <span>NEXT / DATA</span>
+    <h2>作品之外，数据也在记录变化。</h2>
+    <div><a href="/dashboard">查看数据</a><a href="/experience">查看经历</a></div>
+  </section>
+</BaseLayout>

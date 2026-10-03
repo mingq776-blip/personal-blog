@@ -1,88 +1,93 @@
 ﻿---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HeroStage from "../components/HeroStage";
-import PostCard from "../components/PostCard.astro";
-import ProjectCard from "../components/ProjectCard.astro";
+import MagazineHero from "../components/MagazineHero.astro";
 import SectionHeading from "../components/SectionHeading.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import StatCounter from "../components/StatCounter.astro";
+import DataBars from "../components/DataBars.astro";
 import { site } from "../data/site";
+import { experiences, timelineStats } from "../data/experience";
+import { monthlyProgress, overviewStats } from "../data/metrics";
 
-const posts = (await getCollection("posts", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const projects = (await getCollection("projects", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.year - a.data.year);
-
-const featuredPosts = posts.filter((post) => post.data.featured).slice(0, 3);
-const featuredProjects = projects.filter((project) => project.data.featured).slice(0, 3);
-
-const timeline = [
-  { year: "现在", title: "持续写作与独立创作", text: "用文章沉淀方法，用项目验证想法。" },
-  { year: "2025", title: "从收藏转向输出", text: "开始把零散笔记整理成可以复用的知识结构。" },
-  { year: "2024", title: "重新认识个人网站", text: "它不只是简历，也是长期维护的数字花园。" },
-];
+  .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 3);
 ---
 
 <BaseLayout>
-  <section class="relative overflow-hidden border-b border-line">
-    <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:54px_54px] [mask-image:linear-gradient(to_bottom,black,transparent_92%)]"></div>
-    <div class="container relative grid min-h-[calc(100svh-4rem)] items-center gap-10 py-16 lg:grid-cols-[0.95fr_1.05fr] lg:py-20">
-      <div class="relative z-10">
-        <p class="eyebrow" data-reveal>Blog · Portfolio · Lab</p>
-        <h1 class="display mt-6 max-w-3xl text-[clamp(3rem,8vw,6.7rem)] text-balance text-ink" data-reveal>
-          创造、记录，
-          <span class="block text-accent">然后继续生长。</span>
-        </h1>
-        <p class="mt-7 max-w-xl text-base leading-8 text-muted md:text-lg" data-reveal>
-          我是{site.author}，{site.role}。这里记录技术、创作与长期主义，也存放正在发生的项目。
-        </p>
-        <div class="mt-9 flex flex-wrap gap-3" data-reveal>
-          <a href="/blog" class="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-bg transition-transform hover:-translate-y-1">开始阅读</a>
-          <a href="/projects" class="rounded-full border border-line px-5 py-3 text-sm text-ink transition-colors hover:border-accent/50 hover:text-accent">查看作品</a>
-        </div>
-        <div class="mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-line pt-5 text-xs text-muted" data-reveal>
-          <div><strong class="block text-lg text-ink">03</strong>示例文章</div>
-          <div><strong class="block text-lg text-ink">03</strong>示例项目</div>
-          <div><strong class="block text-lg text-ink">∞</strong>继续更新</div>
-        </div>
+  <MagazineHero />
+
+  <section class="editorial-section editorial-section--profile">
+    <div class="container profile-grid">
+      <div class="issue-index reveal-up">
+        <span>01</span>
+        <small>PROFILE</small>
       </div>
-      <HeroStage client:idle />
+      <div class="profile-copy reveal-up">
+        <p class="eyebrow">ABOUT THE CREATOR</p>
+        <h2>我不是在堆叠页面，<br />而是在建立自己的作品档案。</h2>
+        <p>我把学习、开发和视觉表达放进同一个系统。每个项目都保留过程、取舍和结果，让经验能被看见，也能被继续使用。</p>
+      </div>
+      <div class="profile-card reveal-up">
+        <div class="profile-card__monogram">M</div>
+        <dl>
+          <div><dt>身份</dt><dd>{site.role}</dd></div>
+          <div><dt>关注</dt><dd>Web / 设计 / 数据 / AI</dd></div>
+          <div><dt>状态</dt><dd><i></i> 持续创作中</dd></div>
+        </dl>
+      </div>
     </div>
   </section>
 
-  <section class="container py-24">
-    <SectionHeading eyebrow="Selected writing" title="最近写下的内容" description="从问题出发，把零散想法整理成可以复用和继续修改的文字。" href="/blog" />
-    <div class="grid gap-5 lg:grid-cols-3">
-      {featuredPosts.map((post) => <PostCard post={post} />)}
-    </div>
-  </section>
-
-  <section class="border-y border-line bg-[color-mix(in_srgb,var(--panel)_35%,transparent)] py-24">
+  <section class="editorial-section editorial-section--experience">
     <div class="container">
-      <SectionHeading eyebrow="Selected projects" title="正在打磨的作品" description="这些是带有“示例项目”标记的占位案例，用于展示作品集结构、视觉和数据字段。" href="/projects" />
-      <div class="grid gap-6 lg:grid-cols-3">
-        {featuredProjects.map((project, index) => <ProjectCard project={project} index={index} />)}
+      <SectionHeading eyebrow="02 / EXPERIENCE" title="项目经历" description="按照时间顺序整理实践阶段，重点保留我做了什么、解决了什么，以及形成了哪些能力。" href="/experience" linkLabel="完整经历" />
+      <div class="experience-strip">
+        {experiences.map((item, index) => (
+          <article class="experience-card reveal-up" data-tilt>
+            <div class="experience-card__top"><span>{String(index + 1).padStart(2, "0")}</span><time>{item.period}</time></div>
+            <p>{item.organization}</p>
+            <h3>{item.role}</h3>
+            <div class="experience-card__text">{item.description}</div>
+            <ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
+            {item.demo && <em>示例经历</em>}
+          </article>
+        ))}
+      </div>
+      <div class="stat-row">
+        {timelineStats.map((item) => <StatCounter {...item} />)}
       </div>
     </div>
   </section>
 
-  <section class="container grid gap-12 py-24 lg:grid-cols-[0.8fr_1.2fr]">
-    <div class="lg:sticky lg:top-28 lg:self-start" data-reveal>
-      <p class="eyebrow">Small timeline</p>
-      <h2 class="display mt-4 text-4xl text-ink md:text-6xl">不是履历，<br />是变化的过程。</h2>
-      <p class="mt-5 max-w-md text-sm leading-7 text-muted">这里可以先写你的真实经历，也可以保持简洁，只展示几个重要转折。</p>
+  <section class="editorial-section editorial-section--works">
+    <div class="container">
+      <SectionHeading eyebrow="03 / SELECTED WORKS" title="作品展示" description="用真实项目结构展示目标、方案和结果。当前示例作品会在正式发布前替换。" href="/works" linkLabel="全部作品" />
+      <div class="works-grid">
+        {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+      </div>
     </div>
-    <div class="grid gap-3">
-      {timeline.map((item) => (
-        <article class="grid gap-4 rounded-[1.35rem] border border-line bg-panel/60 p-6 md:grid-cols-[110px_1fr] md:p-8" data-reveal>
-          <span class="text-xs uppercase tracking-[0.18em] text-accent">{item.year}</span>
-          <div>
-            <h3 class="font-serif text-2xl font-bold text-ink">{item.title}</h3>
-            <p class="mt-2 text-sm leading-7 text-muted">{item.text}</p>
-          </div>
-        </article>
-      ))}
+  </section>
+
+  <section class="editorial-section editorial-section--data">
+    <div class="container">
+      <SectionHeading eyebrow="04 / DATA & METRICS" title="数据图表" description="用可读的图表记录项目推进、能力分布和时间投入，而不是堆叠无意义的数字。" href="/dashboard" linkLabel="查看数据页" />
+      <div class="dashboard-preview">
+        <div class="stats-grid reveal-up">
+          {overviewStats.map((item) => <StatCounter {...item} />)}
+        </div>
+        <div class="chart-panel reveal-up">
+          <div class="chart-panel__head"><span>PROJECT MOMENTUM</span><strong>近 6 个月</strong></div>
+          <DataBars items={monthlyProgress} />
+        </div>
+      </div>
     </div>
+  </section>
+
+  <section class="container closing-cta reveal-up">
+    <span>READY FOR THE NEXT CHAPTER</span>
+    <h2>下一步，把一个想法做成<br />真正拿得出手的作品。</h2>
+    <div><a href="/works">查看作品</a><a href={`mailto:${site.email}`}>联系我</a></div>
   </section>
 </BaseLayout>
-
-

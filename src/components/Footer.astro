@@ -2,19 +2,17 @@
 import { site } from "../data/site";
 const year = new Date().getFullYear();
 ---
-
-<footer class="mt-24 border-t border-line">
-  <div class="container grid gap-10 py-12 md:grid-cols-[1.2fr_0.8fr] md:items-end">
-    <div>
-      <p class="eyebrow">Keep building</p>
-      <h2 class="display mt-4 max-w-xl text-3xl text-ink md:text-5xl">把每一次学习，变成可以留下来的作品。</h2>
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <p>LET'S MAKE SOMETHING</p>
+      <h2>把每一次学习，<br />变成留下来的作品。</h2>
+      <a href={`mailto:${site.email}`}>开始交流 ↗</a>
     </div>
-    <div class="md:text-right">
-      <div class="flex flex-wrap gap-4 text-sm text-muted md:justify-end">
-        {site.socials.map((item) => <a class="transition-colors hover:text-accent" href={item.href}>{item.label}</a>)}
-      </div>
-      <p class="mt-5 text-xs text-muted">© {year} {site.author}. 保留所有权利。</p>
+    <div class="site-footer__bottom">
+      <span>© {year} {site.author}</span>
+      <div>{site.socials.map((item) => <a href={item.href}>{item.label}</a>)}</div>
+      <span>BUILT WITH ASTRO</span>
     </div>
   </div>
 </footer>
-
