@@ -413,3 +413,12 @@ html[data-theme="dark"] .landscape-card::after { background: linear-gradient(to 
   .landscape-card--wide { grid-row: auto; }
   .hero-art__photo { inset: 4% 3%; width: 94%; height: 91%; opacity: .35; }
 }
+
+
+.page-backdrop { position: fixed; inset: -8%; z-index: 0; overflow: hidden; pointer-events: none; }
+.page-backdrop__image { width: 100%; height: 100%; object-fit: cover; filter: blur(26px) saturate(1.22) brightness(1.08); opacity: .18; transform: scale(1.18); mask-image: linear-gradient(to bottom, rgba(0,0,0,.92) 0%, rgba(0,0,0,.42) 43%, transparent 94%); }
+.page-backdrop__veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(243,250,239,.68) 0%, rgba(243,250,239,.34) 38%, rgba(243,250,239,.9) 86%, #e4f1dc 100%); backdrop-filter: blur(2px); }
+.site-header { position: sticky; z-index: 80; }
+body > main, .site-footer { position: relative; z-index: 2; }
+html[data-theme="dark"] .page-backdrop__image { opacity: .16; filter: blur(28px) saturate(1.18) brightness(.95); }
+html[data-theme="dark"] .page-backdrop__veil { background: linear-gradient(180deg, rgba(7,17,10,.78) 0%, rgba(7,17,10,.54) 40%, rgba(7,17,10,.94) 100%); }

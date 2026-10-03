@@ -24,6 +24,7 @@ bullets([
 doc.add_heading('二、绿色风景图片', level=1)
 bullets([
     '首页增加 3 张绿色风景图片：森林、湖泊山谷和绿色草地。',
+    '森林图片作为全站固定背景，经过模糊、低透明度和顶部到底部渐隐处理。',
     '首页主视觉后方加入湖水山谷图片，作为粒子动画的绿色背景。',
     '图片使用 WebP 压缩和响应式尺寸，保留文字可读性。',
     '图片来源为 Unsplash，可继续替换为个人拍摄或 AI 生成图片。',
@@ -42,8 +43,8 @@ bullets([
 ])
 doc.add_heading('五、设计预览', level=1)
 for image, caption in [
-    (r'E:\codex\个人博客\docs\preview-home-v3.png', '绿色版首页：绿色主色与自然风景图片'),
-    (r'E:\codex\个人博客\docs\preview-dashboard-v3.png', '绿色版数据页：统一绿色图表'),
+    (r'E:\codex\个人博客\docs\preview-home-v4.png', '绿色版首页：绿色主色与自然风景图片'),
+    (r'E:\codex\个人博客\docs\preview-dashboard-v4.png', '绿色版数据页：统一绿色图表'),
 ]:
     p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.add_run().add_picture(image, width=Inches(6.2))
     c = doc.add_paragraph(caption); c.alignment = WD_ALIGN_PARAGRAPH.CENTER
