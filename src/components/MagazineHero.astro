@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import heroLandscape from "../assets/landscapes/lake.webp";
 import { site } from "../data/site";
 ---
 
@@ -28,6 +30,7 @@ import { site } from "../data/site";
     </div>
 
     <div class="hero-art reveal-up">
+      <Image src={heroLandscape} alt="" widths={[720, 1100, 1500]} format="webp" class="hero-art__photo" loading="eager" />
       <canvas id="magazine-canvas" aria-hidden="true"></canvas>
       <div class="hero-art__ring hero-art__ring--one"></div>
       <div class="hero-art__ring hero-art__ring--two"></div>
@@ -60,7 +63,7 @@ import { site } from "../data/site";
     const slowDevice = (navigator.hardwareConcurrency || 8) <= 4;
     const count = reducedMotion ? 34 : mobile ? 42 : slowDevice ? 56 : 78;
     const particles = [];
-    const palette = ["#d9ff54", "#62e6cf", "#7f8cff", "#ff6b8a"];
+    const palette = ["#2f8f46", "#74a83b", "#4d9b76", "#9ac95c"];
     let width = 0;
     let height = 0;
     let ratio = 1;

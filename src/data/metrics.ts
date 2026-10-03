@@ -15,15 +15,15 @@ export const monthlyProgress = [
 ];
 
 export const skillDistribution = [
-  { label: "前端开发", value: 86, color: "#62e6cf" },
-  { label: "视觉设计", value: 74, color: "#f4c46b" },
-  { label: "数据分析", value: 68, color: "#7f8cff" },
-  { label: "内容表达", value: 81, color: "#ff6b8a" },
+  { label: "前端开发", value: 86, color: "#2f8f46" },
+  { label: "视觉设计", value: 74, color: "#74a83b" },
+  { label: "数据分析", value: 68, color: "#4d9b76" },
+  { label: "内容表达", value: 81, color: "#9ac95c" },
 ];
 
 export const timeAllocation = [
-  { label: "开发与实验", value: 38, color: "#62e6cf" },
-  { label: "学习与阅读", value: 27, color: "#f4c46b" },
-  { label: "设计与整理", value: 20, color: "#7f8cff" },
-  { label: "写作与复盘", value: 15, color: "#ff6b8a" },
+  { label: "开发与实验", value: 38, color: "#2f8f46" },
+  { label: "学习与阅读", value: 27, color: "#74a83b" },
+  { label: "设计与整理", value: 20, color: "#4d9b76" },
+  { label: "写作与复盘", value: 15, color: "#9ac95c" },
 ];

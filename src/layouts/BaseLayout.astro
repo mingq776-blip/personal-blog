@@ -1,4 +1,4 @@
-﻿---
+---
 import { ClientRouter } from "astro:transitions";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -31,7 +31,7 @@ const ogImage = new URL(image, Astro.site ?? site.url);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#07111f" />
+    <meta name="theme-color" content="#f3faef" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
@@ -53,7 +53,7 @@ const ogImage = new URL(image, Astro.site ?? site.url);
       (() => {
         try {
           const stored = localStorage.getItem("theme");
-          const preferred = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+          const preferred = "light";
           document.documentElement.dataset.theme = stored || preferred;
         } catch {
           document.documentElement.dataset.theme = "dark";

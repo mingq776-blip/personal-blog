@@ -1,7 +1,8 @@
-﻿---
+---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import MagazineHero from "../components/MagazineHero.astro";
+import LandscapeGallery from "../components/LandscapeGallery.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import StatCounter from "../components/StatCounter.astro";
@@ -39,6 +40,8 @@ const projects = (await getCollection("projects", ({ data }) => !data.draft))
       </div>
     </div>
   </section>
+
+  <LandscapeGallery />
 
   <section class="editorial-section editorial-section--experience">
     <div class="container">

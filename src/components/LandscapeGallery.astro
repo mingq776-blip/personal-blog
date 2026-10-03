@@ -1,0 +1,27 @@
+﻿---
+import { Image } from "astro:assets";
+import forest from "../assets/landscapes/forest.webp";
+import lake from "../assets/landscapes/lake.webp";
+import meadow from "../assets/landscapes/meadow.webp";
+const images = [
+  { src: forest, alt: "被绿色树木包围的林间风景", title: "Into the woods", caption: "在林间，重新校准注意力。" },
+  { src: lake, alt: "绿色山谷与湖水的自然风景", title: "Still water", caption: "留出空白，让想法自然沉淀。" },
+  { src: meadow, alt: "阳光下的绿色草地与远山", title: "Open field", caption: "持续生长，也保持自己的节奏。" },
+];
+---
+<section class="landscape-section">
+  <div class="container">
+    <div class="section-heading reveal-up">
+      <div><p class="section-heading__eyebrow"><span></span>GREEN NOTES</p><h2>自然的绿色片段</h2></div>
+      <div class="section-heading__side"><p>用绿色、光线和风景给网站留一点呼吸感。图片来自 Unsplash，可作为个人视觉素材继续替换。</p></div>
+    </div>
+    <div class="landscape-grid">
+      {images.map((image, index) => (
+        <figure class:list={["landscape-card reveal-up", index === 0 && "landscape-card--wide"]}>
+          <Image src={image.src} alt={image.alt} widths={[520, 900, 1400]} sizes={index === 0 ? "(max-width: 760px) 100vw, 68vw" : "(max-width: 760px) 100vw, 34vw"} format="webp" class="landscape-card__image" loading="lazy" />
+          <figcaption><b>{image.title}</b><span>{image.caption}</span><small>IMAGE / UNSPLASH</small></figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

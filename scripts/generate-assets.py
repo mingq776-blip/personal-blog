@@ -10,12 +10,12 @@ COVERS.mkdir(parents=True, exist_ok=True)
 PUBLIC_IMAGES.mkdir(parents=True, exist_ok=True)
 
 PALETTES = {
-    "post-why-blog": ["#06111f", "#0c3151", "#28d7c0", "#f4c46b"],
-    "post-knowledge-system": ["#140b24", "#3b185d", "#e05c8d", "#ffd166"],
-    "post-astro-site": ["#071a17", "#154a42", "#77e68b", "#d8f56b"],
-    "project-ai-knowledge": ["#0b1026", "#273469", "#7f5af0", "#2cb67d"],
-    "project-data-dashboard": ["#071522", "#123c56", "#ff8c42", "#f6f7eb"],
-    "project-creative-site": ["#180b1e", "#572057", "#ff4d6d", "#79e6ff"],
+    "post-why-blog": ["#071a0d", "#174b24", "#4fa45a", "#b8d96a"],
+    "post-knowledge-system": ["#0b1c12", "#245c37", "#68b86b", "#d8e98f"],
+    "post-astro-site": ["#08180f", "#1e5635", "#3f9b68", "#a6d96b"],
+    "project-ai-knowledge": ["#07170d", "#1d5431", "#55a86a", "#9fcf68"],
+    "project-data-dashboard": ["#091b0d", "#2b643b", "#73b95a", "#d7e48a"],
+    "project-creative-site": ["#0a1d12", "#2a6845", "#4fa982", "#b5df79"],
 }
 
 
