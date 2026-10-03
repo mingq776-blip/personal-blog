@@ -1,0 +1,13 @@
+﻿node_modules/
+dist/
+.astro/
+.tools/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+*.log
+docs/~$*.docx
+docs/*.json
+docs/*.log

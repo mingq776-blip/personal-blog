@@ -1,0 +1,24 @@
+﻿---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+
+const projects = (await getCollection("projects", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.year - a.data.year);
+---
+
+<BaseLayout title="项目" description="正在打磨和已经完成的作品。">
+  <header class="container border-b border-line py-20 md:py-28">
+    <p class="eyebrow" data-reveal>Selected work</p>
+    <h1 class="display mt-5 max-w-4xl text-[clamp(3rem,8vw,6.4rem)] text-ink" data-reveal>用作品回答，我对什么保持好奇。</h1>
+    <p class="mt-6 max-w-2xl text-base leading-8 text-muted" data-reveal>当前展示的是带“示例项目”标记的占位作品，用来演示项目结构、视觉语言和内容字段。</p>
+  </header>
+  <section class="container py-16">
+    <SectionHeading eyebrow={`${projects.length} projects`} title="全部项目" />
+    <div class="grid gap-6 lg:grid-cols-2">
+      {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+    </div>
+  </section>
+</BaseLayout>
+

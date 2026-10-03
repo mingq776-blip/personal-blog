@@ -1,0 +1,78 @@
+﻿---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { site } from "../../data/site";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects", ({ data }) => !data.draft);
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const allProjects = await getCollection("projects", ({ data }) => !data.draft);
+const related = allProjects.filter((item) => item.id !== project.id).slice(0, 2);
+const projectUrl = new URL(`/projects/${project.id}/`, Astro.site ?? site.url);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: project.data.title,
+  description: project.data.summary,
+  dateCreated: String(project.data.year),
+  creator: { "@type": "Person", name: site.author },
+  url: projectUrl.toString(),
+};
+---
+
+<BaseLayout title={project.data.title} description={project.data.summary} image={project.data.cover.src} type="article">
+  <article>
+    <header class="container grid gap-10 py-16 md:py-24 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+      <div data-reveal>
+        <div class="flex flex-wrap items-center gap-3 text-[0.7rem] uppercase tracking-[0.18em] text-muted">
+          <span class="text-accent">Project {project.data.year}</span>
+          <span>/</span>
+          <span>{project.data.role}</span>
+          {project.data.demo && <span class="rounded-full border border-accent-2/40 px-2 py-0.5 text-accent-2">示例项目</span>}
+        </div>
+        <h1 class="display mt-6 text-[clamp(2.8rem,7vw,5.6rem)] text-balance text-ink">{project.data.title}</h1>
+        <p class="mt-7 max-w-2xl text-base leading-8 text-muted md:text-lg">{project.data.summary}</p>
+        <div class="mt-8 flex flex-wrap gap-2">
+          {project.data.stack.map((item) => <span class="rounded-full border border-line px-3 py-1.5 text-xs text-muted">{item}</span>)}
+        </div>
+        <div class="mt-8 flex flex-wrap gap-3">
+          {project.data.liveUrl && <a href={project.data.liveUrl} class="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-bg" target="_blank" rel="noreferrer">访问项目</a>}
+          {project.data.repoUrl && <a href={project.data.repoUrl} class="rounded-full border border-line px-5 py-3 text-sm text-ink" target="_blank" rel="noreferrer">查看代码</a>}
+        </div>
+      </div>
+      <Image src={project.data.cover} alt={project.data.coverAlt} widths={[520, 900, 1300]} format="webp" class="aspect-[16/11] w-full rounded-[1.5rem] border border-line object-cover shadow-2xl" data-reveal />
+    </header>
+
+    <div class="container grid gap-12 lg:grid-cols-[220px_minmax(0,760px)] lg:justify-center">
+      <aside class="hidden lg:block">
+        <div class="sticky top-28 border-l border-line pl-5 text-xs leading-6 text-muted">
+          <p class="mb-4 uppercase tracking-[0.18em]">Project info</p>
+          <p>年份：{project.data.year}</p>
+          <p>角色：{project.data.role}</p>
+        </div>
+      </aside>
+      <div class="prose min-w-0 pb-20" data-pagefind-body>
+        <span class="sr-only">{project.data.title}</span>
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="container border-t border-line py-20">
+      <p class="eyebrow">More work</p>
+      <h2 class="display mt-3 text-3xl text-ink md:text-5xl">其他项目</h2>
+      <div class="mt-8 grid gap-5 md:grid-cols-2">
+        {related.map((item, index) => <ProjectCard project={item} index={index} />)}
+      </div>
+    </section>
+  )}
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</BaseLayout>
+

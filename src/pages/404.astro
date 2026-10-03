@@ -1,0 +1,18 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="页面不存在" description="你访问的页面不存在。" noindex>
+  <section class="container grid min-h-[65vh] place-items-center py-20 text-center">
+    <div>
+      <p class="eyebrow justify-center before:hidden">404 / Lost in space</p>
+      <h1 class="display mt-5 text-[clamp(5rem,18vw,12rem)] leading-none text-ink">404</h1>
+      <p class="mx-auto mt-5 max-w-md text-sm leading-7 text-muted">这条路径暂时没有内容。你可以回到首页，或者继续寻找别的页面。</p>
+      <div class="mt-8 flex justify-center gap-3">
+        <a href="/" class="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-bg">返回首页</a>
+        <a href="/blog" class="rounded-full border border-line px-5 py-3 text-sm text-ink">浏览文章</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

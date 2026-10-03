@@ -1,0 +1,42 @@
+﻿---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { formatDate } from "../lib/format";
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const groups = posts.reduce<Record<string, typeof posts>>((result, post) => {
+  const year = String(post.data.pubDate.getFullYear());
+  result[year] ??= [];
+  result[year].push(post);
+  return result;
+}, {});
+---
+
+<BaseLayout title="归档" description="按时间浏览全部文章。">
+  <header class="container border-b border-line py-20 md:py-28">
+    <p class="eyebrow" data-reveal>Archive</p>
+    <h1 class="display mt-5 text-[clamp(3rem,8vw,6.4rem)] text-ink" data-reveal>时间让零散内容连成路径。</h1>
+  </header>
+  <section class="narrow py-16">
+    {Object.entries(groups).map(([year, yearPosts]) => (
+      <div class="grid gap-6 border-b border-line py-10 first:pt-0 md:grid-cols-[120px_1fr]" data-reveal>
+        <div class="font-serif text-3xl font-bold text-accent">{year}</div>
+        <div class="grid gap-4">
+          {yearPosts.map((post) => (
+            <article class="group grid gap-2 md:grid-cols-[110px_1fr] md:items-baseline">
+              <time class="text-xs text-muted" datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate).slice(5)}</time>
+              <div>
+                <h2 class="font-serif text-xl font-bold text-ink transition-colors group-hover:text-accent">
+                  <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+                </h2>
+                <p class="mt-1 text-xs text-muted">{post.data.category}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+</BaseLayout>
+

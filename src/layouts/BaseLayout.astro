@@ -1,0 +1,118 @@
+﻿---
+import { ClientRouter } from "astro:transitions";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = site.description,
+  image = "/images/og-default.webp",
+  type = "website",
+  noindex = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} · ${site.title}` : `${site.title} · ${site.role}`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url);
+const ogImage = new URL(image, Astro.site ?? site.url);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#06111f" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title={site.title} href="/rss.xml" />
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <title>{pageTitle}</title>
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem("theme");
+          const preferred = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+          document.documentElement.dataset.theme = stored || preferred;
+        } catch {
+          document.documentElement.dataset.theme = "dark";
+        }
+      })();
+    </script>
+    <ClientRouter />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      const initReveal = () => {
+        const elements = document.querySelectorAll("[data-reveal]");
+        if (!("IntersectionObserver" in window)) {
+          elements.forEach((element) => element.classList.add("is-visible"));
+          return;
+        }
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+        );
+        elements.forEach((element) => observer.observe(element));
+      };
+
+      const initTheme = () => {
+        document.querySelectorAll("[data-theme-toggle]").forEach((element) => {
+          const button = element as HTMLElement;
+          if (button.dataset.themeReady === "true") return;
+          button.dataset.themeReady = "true";
+          button.addEventListener("click", () => {
+            const current = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+            const next = current === "light" ? "dark" : "light";
+            document.documentElement.dataset.theme = next;
+            localStorage.setItem("theme", next);
+          });
+        });
+      };
+
+      const boot = () => {
+        initReveal();
+        initTheme();
+      };
+
+      boot();
+      document.addEventListener("astro:page-load", boot);
+    </script>
+  </body>
+</html>
+
+
+

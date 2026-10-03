@@ -1,0 +1,44 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="搜索" description="搜索网站中的文章和项目。" noindex>
+  <header class="container border-b border-line py-20">
+    <p class="eyebrow" data-reveal>Search</p>
+    <h1 class="display mt-4 text-5xl text-ink md:text-7xl" data-reveal>寻找一段旧记忆。</h1>
+    <p class="mt-5 max-w-xl text-sm leading-7 text-muted" data-reveal>搜索会索引博客文章和项目详情。构建网站时由 Pagefind 自动生成索引。</p>
+  </header>
+  <section class="narrow py-16">
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+    <div id="search" class="pagefind-host"></div>
+    <script is:inline src="/pagefind/pagefind-ui.js"></script>
+    <script is:inline>
+      const initPagefind = () => {
+        const host = document.querySelector("#search");
+        if (!host || !window.PagefindUI || host.dataset.ready === "true") return;
+        host.dataset.ready = "true";
+        new window.PagefindUI({
+          element: "#search",
+          showSubResults: true,
+          showImages: false,
+          translations: {
+            placeholder: "输入关键词",
+            clear_search: "清除",
+            load_more: "加载更多",
+            search_label: "搜索网站",
+            filters_label: "筛选",
+            zero_results: "没有找到与 [SEARCH_TERM] 相关的内容",
+            many_results: "找到 [COUNT] 条结果",
+            one_result: "找到 1 条结果",
+            alt_search: "也可以尝试以下关键词：",
+            search_suggestion: "没有找到结果，试试更短的关键词",
+            searching: "正在搜索 [SEARCH_TERM]…",
+          },
+        });
+      };
+      window.addEventListener("load", initPagefind);
+      document.addEventListener("astro:page-load", initPagefind);
+    </script>
+  </section>
+</BaseLayout>
+

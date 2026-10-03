@@ -1,0 +1,26 @@
+﻿---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  return [...new Set(posts.map((post) => post.data.category))].map((category) => ({ params: { category } }));
+}
+
+const { category } = Astro.params;
+const posts = (await getCollection("posts", ({ data }) => !data.draft && data.category === category))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title={`分类：${category}`} description={`关于${category}的全部文章。`}>
+  <header class="container border-b border-line py-20">
+    <p class="eyebrow" data-reveal>Category</p>
+    <h1 class="display mt-4 text-5xl text-ink md:text-7xl" data-reveal>{category}</h1>
+    <p class="mt-5 text-sm text-muted">共 {posts.length} 篇文章</p>
+  </header>
+  <section class="container grid gap-5 py-16 lg:grid-cols-2">
+    {posts.map((post) => <PostCard post={post} compact />)}
+  </section>
+</BaseLayout>
+
