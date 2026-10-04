@@ -1,0 +1,78 @@
+---
+import { Image } from "astro:assets";
+import meadow from "../assets/landscapes/meadow.webp";
+interface Props {
+  items: Array<{ period: string; role: string; organization: string; description: string; highlights: string[]; demo?: boolean }>;
+}
+const { items } = Astro.props;
+---
+<section class="experience-stack-shell">
+  <Image src={meadow} alt="" widths={[720, 1200, 1600]} sizes="100vw" format="webp" class="experience-stack__bg" loading="lazy" />
+  <div class="experience-stack__overlay"></div>
+  <div class="container experience-stack" data-experience-stack>
+    <div class="experience-stack__viewport">
+      {items.map((item, index) => (
+        <article class="experience-stack-card" data-stack-card data-index={index} data-position={index}>
+          <div class="experience-stack-card__top"><span>{String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}</span><time>{item.period}</time></div>
+          <p>{item.organization}</p>
+          <h3>{item.role}</h3>
+          <div class="experience-stack-card__text">{item.description}</div>
+          <ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
+          <button type="button" data-stack-next aria-label="查看下一项经历">下一项 ↗</button>
+        </article>
+      ))}
+    </div>
+    <div class="experience-stack__controls">
+      <button type="button" data-stack-prev aria-label="查看上一项经历">← 上一项</button>
+      <div class="experience-stack__dots">
+        {items.map((_, index) => <button type="button" data-stack-dot data-index={index} aria-label={`查看第 ${index + 1} 项经历`}></button>)}
+      </div>
+      <button type="button" data-stack-next aria-label="查看下一项经历">下一项 →</button>
+    </div>
+  </div>
+</section>
+<script>
+  const initExperienceStacks = () => {
+    document.querySelectorAll("[data-experience-stack]").forEach((root) => {
+      if (!(root instanceof HTMLElement) || root.dataset.ready === "true") return;
+      root.dataset.ready = "true";
+      const cards = Array.from(root.querySelectorAll("[data-stack-card]"));
+      const dots = Array.from(root.querySelectorAll("[data-stack-dot]"));
+      if (!cards.length) return;
+      let current = 0;
+      const render = () => {
+        cards.forEach((card, index) => {
+          const position = (index - current + cards.length) % cards.length;
+          card.setAttribute("data-position", String(position));
+          card.classList.toggle("is-active", position === 0);
+          card.setAttribute("aria-hidden", position === 0 ? "false" : "true");
+          card.querySelectorAll("button, a").forEach((element) => {
+            const control = element as HTMLElement;
+            control.tabIndex = position === 0 ? 0 : -1;
+          });
+        });
+        dots.forEach((dot, index) => {
+          dot.classList.toggle("is-active", index === current);
+          dot.setAttribute("aria-current", index === current ? "true" : "false");
+        });
+      };
+      const move = (step: number) => {
+        current = (current + step + cards.length) % cards.length;
+        render();
+      };
+      root.querySelectorAll("[data-stack-next]").forEach((button) => button.addEventListener("click", () => move(1)));
+      root.querySelectorAll("[data-stack-prev]").forEach((button) => button.addEventListener("click", () => move(-1)));
+      dots.forEach((dot) => dot.addEventListener("click", () => {
+        current = Number(dot.getAttribute("data-index") || 0);
+        render();
+      }));
+      cards.forEach((card) => card.addEventListener("click", (event) => {
+        if ((event.target as HTMLElement).closest("button, a")) return;
+        if (card.getAttribute("data-position") === "0") move(1);
+      }));
+      render();
+    });
+  };
+  initExperienceStacks();
+  document.addEventListener("astro:page-load", initExperienceStacks);
+</script>

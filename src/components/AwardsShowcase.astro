@@ -1,0 +1,48 @@
+---
+interface Props {
+  awards: Array<{ year: string; title: string; detail: string }>;
+}
+const { awards } = Astro.props;
+---
+<article class="awards-showcase reveal-up" data-awards>
+  <button type="button" class="awards-showcase__button" data-awards-open aria-haspopup="dialog">
+    <span>HONORS & PRACTICE</span>
+    <strong>{awards.length}+</strong>
+    <p>荣誉与实践</p>
+    <small>点击查看全部奖项 ↗</small>
+  </button>
+  <dialog class="awards-dialog" data-awards-dialog aria-labelledby="awards-dialog-title">
+    <div class="awards-dialog__head">
+      <div><span>HONORS & PRACTICE</span><h2 id="awards-dialog-title">荣誉与实践</h2></div>
+      <button type="button" data-awards-close aria-label="关闭奖项弹窗">×</button>
+    </div>
+    <div class="awards-dialog__list">
+      {awards.map((item, index) => (
+        <article>
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <time>{item.year}</time>
+          <h3>{item.title}</h3>
+          <p>{item.detail}</p>
+        </article>
+      ))}
+    </div>
+  </dialog>
+</article>
+<script>
+  const initAwards = () => {
+    document.querySelectorAll("[data-awards]").forEach((root) => {
+      if (!(root instanceof HTMLElement) || root.dataset.ready === "true") return;
+      root.dataset.ready = "true";
+      const dialog = root.querySelector("dialog");
+      const open = root.querySelector("[data-awards-open]");
+      const close = root.querySelector("[data-awards-close]");
+      open?.addEventListener("click", () => dialog?.showModal());
+      close?.addEventListener("click", () => dialog?.close());
+      dialog?.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+    });
+  };
+  initAwards();
+  document.addEventListener("astro:page-load", initAwards);
+</script>

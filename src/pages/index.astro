@@ -2,13 +2,15 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import MagazineHero from "../components/MagazineHero.astro";
-import LandscapeGallery from "../components/LandscapeGallery.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import StatCounter from "../components/StatCounter.astro";
+import ExperienceStack from "../components/ExperienceStack.astro";
+import AwardsShowcase from "../components/AwardsShowcase.astro";
 import DataBars from "../components/DataBars.astro";
 import { site } from "../data/site";
 import { experiences, timelineStats } from "../data/experience";
+import { awards } from "../data/awards";
 import { monthlyProgress, overviewStats } from "../data/metrics";
 
 const projects = (await getCollection("projects", ({ data }) => !data.draft))
@@ -42,26 +44,14 @@ const projects = (await getCollection("projects", ({ data }) => !data.draft))
     </div>
   </section>
 
-  <LandscapeGallery />
-
   <section class="editorial-section editorial-section--experience">
     <div class="container">
-      <SectionHeading eyebrow="02 / EXPERIENCE" title="项目经历" description="按照时间顺序整理实践阶段，重点保留我做了什么、解决了什么，以及形成了哪些能力。" href="/experience" linkLabel="完整经历" />
-      <div class="experience-strip">
-        {experiences.map((item, index) => (
-          <article class="experience-card reveal-up" data-tilt>
-            <div class="experience-card__top"><span>{String(index + 1).padStart(2, "0")}</span><time>{item.period}</time></div>
-            <p>{item.organization}</p>
-            <h3>{item.role}</h3>
-            <div class="experience-card__text">{item.description}</div>
-            <ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
-            {item.demo && <em>示例经历</em>}
-          </article>
-        ))}
-      </div>
-      <div class="stat-row">
-        {timelineStats.map((item) => <StatCounter {...item} />)}
-      </div>
+      <SectionHeading eyebrow="02 / EXPERIENCE" title="项目经历" description="点击卡片或“下一项”，逐层查看每段实践经历、职责和量化结果。" href="/experience" linkLabel="完整经历" />
+    </div>
+    <ExperienceStack items={experiences} />
+    <div class="container stat-row">
+      {timelineStats.slice(0, 2).map((item) => <StatCounter {...item} />)}
+      <AwardsShowcase awards={awards} />
     </div>
   </section>
 
@@ -69,7 +59,7 @@ const projects = (await getCollection("projects", ({ data }) => !data.draft))
     <div class="container">
       <SectionHeading eyebrow="03 / SELECTED WORKS" title="作品展示" description="从量化成果清单中选取核心项目，展示目标、职责、技术栈与可核验结果。" href="/works" linkLabel="全部作品" />
       <div class="works-grid">
-        {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+        {projects.map((project, index) => <ProjectCard project={project} index={index} showImage={false} />)}
       </div>
     </div>
   </section>

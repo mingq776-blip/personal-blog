@@ -1,6 +1,7 @@
 ﻿---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import StatCounter from "../components/StatCounter.astro";
+import ExperienceStack from "../components/ExperienceStack.astro";
 import { experiences, timelineStats } from "../data/experience";
 ---
 <BaseLayout title="项目经历" description="按时间整理的项目实践、职责与能力变化。">
@@ -15,20 +16,7 @@ import { experiences, timelineStats } from "../data/experience";
     </div>
   </header>
 
-  <section class="container experience-page">
-    {experiences.map((item, index) => (
-      <article class="experience-entry reveal-up">
-        <div class="experience-entry__rail"><span>{String(index + 1).padStart(2, "0")}</span><i></i></div>
-        <div class="experience-entry__period"><time>{item.period}</time><small>{item.organization}</small></div>
-        <div class="experience-entry__content">
-          <h2>{item.role}</h2>
-          <p>{item.description}</p>
-          <ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
-          {item.demo && <em>示例经历</em>}
-        </div>
-      </article>
-    ))}
-  </section>
+  <ExperienceStack items={experiences} />
 
   <section class="container stats-section">
     <div class="stats-grid">{timelineStats.map((item) => <StatCounter {...item} />)}</div>

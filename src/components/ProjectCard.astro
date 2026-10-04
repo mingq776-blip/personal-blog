@@ -3,17 +3,21 @@ import { Image } from "astro:assets";
 interface Props {
   project: any;
   index?: number;
+  showImage?: boolean;
 }
-const { project, index = 0 } = Astro.props;
+const { project, index = 0, showImage = true } = Astro.props;
 const data = project.data;
 ---
-<article class="work-card reveal-up" data-tilt>
-  <a class="work-card__image" href={`/works/${project.id}/`} aria-label={data.title}>
-    <Image src={data.cover} alt={data.coverAlt} widths={[480, 760, 1100]} sizes="(max-width: 768px) 100vw, 50vw" format="webp" class="work-card__cover" loading="lazy" />
-    <span class="work-card__number">{String(index + 1).padStart(2, "0")}</span>
-    <span class="work-card__arrow">↗</span>
-  </a>
+<article class:list={["work-card", "reveal-up", !showImage && "work-card--text"]} data-tilt>
+  {showImage && (
+    <a class="work-card__image" href={`/works/${project.id}/`} aria-label={data.title}>
+      <Image src={data.cover} alt={data.coverAlt} widths={[480, 760, 1100]} sizes="(max-width: 768px) 100vw, 50vw" format="webp" class="work-card__cover" loading="lazy" />
+      <span class="work-card__number">{String(index + 1).padStart(2, "0")}</span>
+      <span class="work-card__arrow">↗</span>
+    </a>
+  )}
   <div class="work-card__body">
+    {!showImage && <span class="work-card__text-index">{String(index + 1).padStart(2, "0")}</span>}
     <div class="work-card__meta">
       <span>{data.year}</span>
       <span>{data.role}</span>
