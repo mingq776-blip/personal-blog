@@ -1,5 +1,5 @@
 export const site = {
-  title: "徐晨洋｜个人作品档案",
+  title: "Xu Chenyang | Personal Portfolio",
   author: "徐晨洋",
   role: "宁夏大学 · 大数据管理与应用",
   description: "用调研、数据、AI 与数字交付，把课堂学习转化为可以验证、可以展示的项目成果。",

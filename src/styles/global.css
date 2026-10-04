@@ -435,3 +435,14 @@ html[data-theme="dark"] .page-backdrop__veil { background: linear-gradient(180de
 .award-card h3 { margin: .45rem 0 .25rem; font-family: var(--font-serif); font-size: 1.25rem; line-height: 1.25; }
 .award-card p { margin: 0; color: var(--muted); font-size: .72rem; line-height: 1.6; }
 @media (max-width: 760px) { .award-grid { grid-template-columns: 1fr; } }
+
+
+.hero-title__char { display: inline-block; transform-origin: 50% 100%; transition: color 180ms ease; will-change: transform; }
+.hero-title:hover .hero-title__char { animation: char-wave 720ms cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i) * 55ms); }
+.hero-title:hover .hero-title__line--accent .hero-title__char { text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 62%, transparent); }
+@keyframes char-wave {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  30% { transform: translateY(-18px) rotate(-6deg) scale(1.06); }
+  60% { transform: translateY(5px) rotate(2deg) scale(.98); }
+  80% { transform: translateY(-3px) rotate(-1deg) scale(1.01); }
+}
