@@ -422,3 +422,16 @@ html[data-theme="dark"] .landscape-card::after { background: linear-gradient(to 
 body > main, .site-footer { position: relative; z-index: 2; }
 html[data-theme="dark"] .page-backdrop__image { opacity: .16; filter: blur(28px) saturate(1.18) brightness(.95); }
 html[data-theme="dark"] .page-backdrop__veil { background: linear-gradient(180deg, rgba(7,17,10,.78) 0%, rgba(7,17,10,.54) 40%, rgba(7,17,10,.94) 100%); }
+
+
+.work-card__metric { display: grid; gap: .15rem; margin-top: 1rem; padding: .75rem .85rem; border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.work-card__metric strong { color: var(--accent); font-family: var(--font-serif); font-size: 1.2rem; }
+.work-card__metric span { color: var(--muted); font-size: .65rem; line-height: 1.5; }
+
+
+.award-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; }
+.award-card { padding: 1.15rem 1.25rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--panel); }
+.award-card time { color: var(--accent); font-size: .62rem; font-weight: 900; letter-spacing: .12em; }
+.award-card h3 { margin: .45rem 0 .25rem; font-family: var(--font-serif); font-size: 1.25rem; line-height: 1.25; }
+.award-card p { margin: 0; color: var(--muted); font-size: .72rem; line-height: 1.6; }
+@media (max-width: 760px) { .award-grid { grid-template-columns: 1fr; } }

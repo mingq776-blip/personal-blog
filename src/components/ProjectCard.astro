@@ -21,6 +21,7 @@ const data = project.data;
     </div>
     <h3><a href={`/works/${project.id}/`}>{data.title}</a></h3>
     <p>{data.summary}</p>
+    {data.metric && <div class="work-card__metric"><strong>{data.metric}</strong><span>{data.evidence}</span></div>}
     <div class="work-card__stack">
       {data.stack.slice(0, 4).map((item: string) => <span>{item}</span>)}
     </div>

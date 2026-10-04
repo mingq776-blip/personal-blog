@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
-const projects = (await getCollection("projects", ({ data }) => !data.draft)).sort((a, b) => b.data.year - a.data.year);
+const projects = (await getCollection("projects", ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
 ---
 <BaseLayout title="作品展示" description="项目作品、视觉实验与正在迭代的创意。">
   <header class="page-hero page-hero--works">
@@ -12,7 +12,7 @@ const projects = (await getCollection("projects", ({ data }) => !data.draft)).so
         <p class="eyebrow">SELECTED WORKS</p>
         <h1>用作品回答，<br />我到底在做什么。</h1>
       </div>
-      <p class="page-hero__intro reveal-up">每个作品都从问题出发，保留目标、过程、技术与最终结果。当前示例作品会逐步替换为真实项目。</p>
+      <p class="page-hero__intro reveal-up">这里集中展示可量化项目、技术栈和个人职责。每张卡片保留核心指标、证据口径与使用边界。</p>
     </div>
   </header>
 

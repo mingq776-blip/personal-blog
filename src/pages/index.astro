@@ -12,8 +12,8 @@ import { experiences, timelineStats } from "../data/experience";
 import { monthlyProgress, overviewStats } from "../data/metrics";
 
 const projects = (await getCollection("projects", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.year - a.data.year)
-  .slice(0, 3);
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 6);
 ---
 
 <BaseLayout>
@@ -27,14 +27,15 @@ const projects = (await getCollection("projects", ({ data }) => !data.draft))
       </div>
       <div class="profile-copy reveal-up">
         <p class="eyebrow">ABOUT THE CREATOR</p>
-        <h2>我不是在堆叠页面，<br />而是在建立自己的作品档案。</h2>
-        <p>我把学习、开发和视觉表达放进同一个系统。每个项目都保留过程、取舍和结果，让经验能被看见，也能被继续使用。</p>
+        <h2>把调研、数据与数字交付，<br />连成一条可验证的成果链。</h2>
+        <p>我是徐晨洋，宁夏大学 2025 级大数据管理与应用本科生。每个项目都保留目标、方法、量化证据和使用边界，让能力可以被核验。</p>
       </div>
       <div class="profile-card reveal-up">
-        <div class="profile-card__monogram">M</div>
+        <div class="profile-card__monogram">徐</div>
         <dl>
           <div><dt>身份</dt><dd>{site.role}</dd></div>
-          <div><dt>关注</dt><dd>Web / 设计 / 数据 / AI</dd></div>
+          <div><dt>专业</dt><dd>大数据管理与应用</dd></div>
+          <div><dt>关注</dt><dd>调研 / AI / 数据 / Web</dd></div>
           <div><dt>状态</dt><dd><i></i> 持续创作中</dd></div>
         </dl>
       </div>
@@ -66,7 +67,7 @@ const projects = (await getCollection("projects", ({ data }) => !data.draft))
 
   <section class="editorial-section editorial-section--works">
     <div class="container">
-      <SectionHeading eyebrow="03 / SELECTED WORKS" title="作品展示" description="用真实项目结构展示目标、方案和结果。当前示例作品会在正式发布前替换。" href="/works" linkLabel="全部作品" />
+      <SectionHeading eyebrow="03 / SELECTED WORKS" title="作品展示" description="从量化成果清单中选取核心项目，展示目标、职责、技术栈与可核验结果。" href="/works" linkLabel="全部作品" />
       <div class="works-grid">
         {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
       </div>
@@ -81,7 +82,7 @@ const projects = (await getCollection("projects", ({ data }) => !data.draft))
           {overviewStats.map((item) => <StatCounter {...item} />)}
         </div>
         <div class="chart-panel reveal-up">
-          <div class="chart-panel__head"><span>PROJECT MOMENTUM</span><strong>近 6 个月</strong></div>
+          <div class="chart-panel__head"><span>PROJECT EVIDENCE</span><strong>成果证据覆盖</strong></div>
           <DataBars items={monthlyProgress} />
         </div>
       </div>
@@ -91,6 +92,6 @@ const projects = (await getCollection("projects", ({ data }) => !data.draft))
   <section class="container closing-cta reveal-up">
     <span>READY FOR THE NEXT CHAPTER</span>
     <h2>下一步，把一个想法做成<br />真正拿得出手的作品。</h2>
-    <div><a href="/works">查看作品</a><a href={`mailto:${site.email}`}>联系我</a></div>
+    <div><a href="/works">查看作品</a><a href="https://github.com/mingq776-blip" target="_blank" rel="noreferrer">GitHub</a></div>
   </section>
 </BaseLayout>

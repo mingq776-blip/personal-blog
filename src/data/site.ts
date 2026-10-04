@@ -1,11 +1,11 @@
 export const site = {
-  title: "我的博客",
-  author: "我的名字",
-  role: "内容创作者 / 独立开发者",
-  description: "用杂志式视觉记录个人经历、项目、作品与数据。保持好奇，持续输出。",
+  title: "徐晨洋｜个人作品档案",
+  author: "徐晨洋",
+  role: "宁夏大学 · 大数据管理与应用",
+  description: "用调研、数据、AI 与数字交付，把课堂学习转化为可以验证、可以展示的项目成果。",
   url: "https://personal-blog-gamma-six.vercel.app",
-  location: "中国",
-  email: "hello@example.com",
+  location: "宁夏 · 银川",
+  email: "",
   navigation: [
     { label: "首页", href: "/" },
     { label: "个人介绍", href: "/about" },
@@ -15,6 +15,5 @@ export const site = {
   ],
   socials: [
     { label: "GitHub", href: "https://github.com/mingq776-blip" },
-    { label: "邮箱", href: "mailto:hello@example.com" },
   ],
 } as const;

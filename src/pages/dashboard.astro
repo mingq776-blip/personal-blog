@@ -24,26 +24,26 @@ import { monthlyProgress, overviewStats, skillDistribution, timeAllocation } fro
   <section class="container chart-grid">
     <h2 class="sr-only">数据图表与洞察</h2>
     <article class="chart-panel chart-panel--wide reveal-up">
-      <div class="chart-panel__head"><span>PROJECT MOMENTUM</span><strong>近 6 个月推进指数</strong></div>
+      <div class="chart-panel__head"><span>EVIDENCE COVERAGE</span><strong>成果证据覆盖</strong></div>
       <DataBars items={monthlyProgress} />
     </article>
     <article class="chart-panel reveal-up">
-      <div class="chart-panel__head"><span>TIME ALLOCATION</span><strong>时间分配</strong></div>
+      <div class="chart-panel__head"><span>OUTCOME MIX</span><strong>成果类型分布</strong></div>
       <DonutChart items={timeAllocation} />
     </article>
     <article class="chart-panel chart-panel--wide reveal-up">
-      <div class="chart-panel__head"><span>CAPABILITY MAP</span><strong>能力分布</strong></div>
+      <div class="chart-panel__head"><span>CAPABILITY EVIDENCE</span><strong>能力证据分布</strong></div>
       <DataBars items={skillDistribution} />
     </article>
     <article class="insight-panel reveal-up">
       <span>01 / INSIGHT</span>
-      <h3>稳定投入比短期爆发更有价值。</h3>
-      <p>近六个月推进指数持续上升。下一步重点是把开发能力转化为可以公开体验的完整作品。</p>
+      <h3>优势已经形成，但“证据闭环”仍需加强。</h3>
+      <p>当前最有说服力的是调研与统计、AI 原型、科研仿真和数字交付四条证据链。下一步应补充真实业务数据和可复现代码。</p>
     </article>
     <article class="insight-panel insight-panel--accent reveal-up">
       <span>02 / NEXT ACTION</span>
-      <h3>每月完成一次复盘，每季度发布一个作品。</h3>
-      <p>数据只用于发现趋势，不追求装饰性的大屏效果。</p>
+      <h3>接入真实测试，补一个 SQL + 可视化分析项目。</h3>
+      <p>优先把青穗接入 30—50 名真实学生测试，并为 CMAU 补齐源数据和统计代码。</p>
     </article>
   </section>
 </BaseLayout>

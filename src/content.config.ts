@@ -25,7 +25,10 @@ const projects = defineCollection({
     z.object({
       title: z.string(),
       summary: z.string(),
+      metric: z.string().default(""),
+      evidence: z.string().default(""),
       year: z.number(),
+      order: z.number().default(99),
       role: z.string(),
       stack: z.array(z.string()).default([]),
       cover: image(),

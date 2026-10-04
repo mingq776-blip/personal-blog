@@ -1,41 +1,62 @@
-﻿---
+---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import StatCounter from "../components/StatCounter.astro";
 import { site } from "../data/site";
+import { awards } from "../data/awards";
 const values = [
-  ["01", "先理解问题", "不急着进入方案。先定义目标、约束和真正需要解决的部分。"],
-  ["02", "让过程可见", "保留判断与取舍，让作品不仅能展示结果，也能解释为什么这样做。"],
-  ["03", "保持可持续", "选择能够长期维护的结构、审美和工作方式，而不是追逐短期效果。"],
+  ["01", "真实优先", "能核验的数据才写进作品，模拟数据、计划值和调研结果分别标注清楚。"],
+  ["02", "证据闭环", "每个项目都保留目标、方法、量化结果和使用边界，不只展示结论。"],
+  ["03", "持续迭代", "从问卷、模型到网页，把项目逐步整理成可以公开体验的成果。"],
+];
+const stats = [
+  { value: 629, suffix: "", label: "有效问卷" },
+  { value: 7, suffix: "", label: "核心项目" },
+  { value: 10, suffix: "+", label: "荣誉与实践" },
 ];
 ---
-<BaseLayout title="个人介绍" description={`关于${site.author}，以及持续创作的方向。`}>
+<BaseLayout title="个人介绍" description={`关于${site.author}，以及正在形成的项目与能力证据。`}>
   <header class="profile-hero">
     <div class="container profile-hero__grid">
       <div class="issue-index reveal-up"><span>01</span><small>PROFILE</small></div>
       <div class="reveal-up">
         <p class="eyebrow">ABOUT ME</p>
-        <h1>保持好奇，<br />持续交付。</h1>
+        <h1>从数据调研，<br />到数字交付。</h1>
       </div>
-      <p class="profile-hero__lead reveal-up">我正在建立一套把学习、开发和视觉表达连接起来的工作方式。网站既是个人档案，也是长期练习的现场。</p>
+      <p class="profile-hero__lead reveal-up">我是徐晨洋，宁夏大学 2025 级大数据管理与应用本科生。持续围绕问卷研究、AI 原型、科研仿真和 Web 交付积累可量化成果。</p>
     </div>
   </header>
 
   <section class="container about-grid">
     <div class="about-monogram reveal-up" data-tilt>
-      <span>M</span>
-      <small>PERSONAL ARCHIVE / 2026</small>
+      <span>徐</span>
+      <small>DATA · RESEARCH · DELIVERY</small>
     </div>
     <div class="about-copy reveal-up">
       <p class="eyebrow">WHO I AM</p>
-      <h2>我是{site.author}，{site.role}。</h2>
-      <p>我关注一个想法如何从模糊问题变成清晰结构，再变成可以体验的作品。相比只展示最终结果，我更愿意记录过程、取舍和下一步。</p>
-      <p>目前的关注方向包括 Web 开发、交互设计、数据可视化、个人知识管理和 AI 辅助创作。</p>
-      <div class="profile-tags"><span>Web Development</span><span>Interaction</span><span>Data</span><span>Knowledge</span><span>AI</span></div>
+      <h2>用项目和证据，建立自己的专业画像。</h2>
+      <p>2025—2026 学年综合测评 83.56 分，学年班级排名 8/37，上学期排名 6/38，获得三等综合奖学金并通过大学英语四级。当前重点学习高等数学、概率论与数理统计、管理学、经济学和数据分析相关课程。</p>
+      <p>我参与过社区 AI 美育、非遗数字化、AI 财务教练、古建灾害模拟和 CMAU 市场调查等项目，负责或参与调研、数据整理、模型原型、研究设计和成果表达。相比笼统描述，我更希望用问卷数量、模型指标、仿真规模和交付结果说明能力。</p>
+      <div class="profile-tags"><span>问卷与统计</span><span>AI 产品原型</span><span>研究设计</span><span>数据可视化</span><span>Web 交付</span></div>
+    </div>
+  </section>
+
+  <section class="container stats-section">
+    <div class="stats-grid">{stats.map((item) => <StatCounter {...item} />)}</div>
+  </section>
+
+
+  <section class="editorial-section editorial-section--awards">
+    <div class="container">
+      <div class="section-heading reveal-up"><div><p class="section-heading__eyebrow"><span></span>HONORS & CERTIFICATES</p><h2>荣誉与资格</h2></div><div class="section-heading__side"><p>以下信息按简历材料整理，正式投递时可与证书、公示和获奖文件进一步核验。</p></div></div>
+      <div class="award-grid">
+        {awards.map((item) => <article class="award-card reveal-up"><time>{item.year}</time><h3>{item.title}</h3><p>{item.detail}</p></article>)}
+      </div>
     </div>
   </section>
 
   <section class="editorial-section editorial-section--values">
     <div class="container">
-      <div class="section-heading reveal-up"><div><p class="section-heading__eyebrow"><span></span>MY PRINCIPLES</p><h2>我如何做事</h2></div><div class="section-heading__side"><p>不追求复杂，只追求清晰、真实和可以继续迭代。</p></div></div>
+      <div class="section-heading reveal-up"><div><p class="section-heading__eyebrow"><span></span>MY PRINCIPLES</p><h2>展示原则</h2></div><div class="section-heading__side"><p>真实、清楚、不过度包装，是我整理个人作品时的基本标准。</p></div></div>
       <div class="value-grid">
         {values.map(([number, title, text]) => <article class="value-card reveal-up"><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}
       </div>
@@ -44,7 +65,7 @@ const values = [
 
   <section class="container about-now reveal-up">
     <span>NOW / 2026</span>
-    <h2>持续完善个人网站、项目案例与数据表达，把零散实践整理成完整作品。</h2>
+    <h2>继续补强 SQL、Python 与真实业务场景，把现有项目从“完成材料”推进到“可验证作品”。</h2>
     <div><a href="/experience">看项目经历</a><a href="/works">看作品展示</a></div>
   </section>
 </BaseLayout>
