@@ -18,7 +18,6 @@ const { items } = Astro.props;
           <h3>{item.role}</h3>
           <div class="experience-stack-card__text">{item.description}</div>
           <ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
-          <button type="button" data-stack-next aria-label="查看下一项经历">下一项 ↗</button>
         </article>
       ))}
     </div>
