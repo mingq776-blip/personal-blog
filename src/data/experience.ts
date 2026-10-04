@@ -47,10 +47,26 @@ export const experiences = [
     highlights: ["16+ 页面/路由", "11 个核心组件", "Lighthouse 最高 100"],
     demo: false,
   },
+  {
+    period: "2025 — 2026",
+    role: "团委社团管理部｜工作人员",
+    organization: "宁夏大学博雅书院团委社团管理部",
+    description: "参与社团活动材料检查、值班排班、活动宣传和迷彩青春社团活动跟进，并承担就业分享、双创讲座与结项答辩等多类主持任务。",
+    highlights: ["10+ 场校园活动", "4 类主持任务", "材料检查与排班", "活动宣传设计"],
+    demo: false,
+  },
+  {
+    period: "2025 — 2026",
+    role: "KAB 创新创业俱乐部｜综合工作组成员",
+    organization: "宁夏大学 KAB 创新创业俱乐部博雅书院分部",
+    description: "参与就业与创业分享活动策划、嘉宾对接、现场主持和材料整理，协同推进双创讲座、经验分享与互动答疑。",
+    highlights: ["综合工作组成员", "就业分享会主持", "4 位分享嘉宾", "双创讲座协同"],
+    demo: false,
+  },
 ];
 
 export const timelineStats = [
-  { value: 7, suffix: "", label: "核心项目" },
+  { value: 8, suffix: "", label: "核心经历" },
   { value: 629, suffix: "", label: "有效问卷" },
   { value: 10, suffix: "+", label: "荣誉与实践" },
 ];
