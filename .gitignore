@@ -12,3 +12,4 @@ docs/~$*.docx
 docs/*.json
 docs/*.log
 work/
+outputs/
